@@ -1,5 +1,6 @@
 import requests
 import json
+import random
 
 class Multilinguist:
   """This class represents a world traveller who knows 
@@ -78,3 +79,52 @@ class Multilinguist:
     json_response = json.loads(response.text)
     return json_response['translationText']
 
+class MathGenius(Multilinguist):
+
+  total_number = 0
+
+  def __init__(self, list_of_numbers):
+    super().__init__()
+    for number in list_of_numbers:
+      self.total_number +=  number
+
+  
+  def report_total(self):
+    return "The total is {}".format(self.total_number) 
+
+class QuoteCollector(Multilinguist):
+  quotes = ["There is nothing permanent except change.", 
+          "The secret of getting ahead is getting started.",
+          "No act of kindness, no matter how small, is ever wasted.",
+          "If you cannot do great things, do small things in a great way."
+          ]
+
+  def __init__(self, country_name, msg):
+    super().__init__()
+    pass 
+  
+  def add_quote(self, new_quote):
+    self.quotes.append(new_quote)
+
+  def report_quote(self):
+    return random.choice(self.quotes)
+
+
+my_numbers = [6, 4, 9]
+me = Multilinguist()
+print(me.language_in("Canada"))
+me.travel_to("India")
+print(me.say_in_local_language("Hello"))
+
+you = MathGenius([23,45,676,34,5778,4,23,5465])
+you.report_total()
+
+print(you.language_in("Canada"))
+you.report_total() # The total is 12048
+you.travel_to("Italy")
+print(you.report_total()) # È Il totale 1030767
+us = QuoteCollector("Canada", "There is nothing permanent except change.")
+print(us.language_in("Canada"))
+print(us.report_quote())
+us.travel_to("France")
+print(us.report_quote())
